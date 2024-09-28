@@ -239,6 +239,7 @@ QTreeView {
         self.text_edit.setAcceptDrops(True)
         self.text_edit.setPlaceholderText("Enter your Markdown here...")
         self.text_edit.textChanged.connect(self.update_preview)
+        self.text_edit.textChanged.connect(self.mark_as_edited)
         self.text_edit.setUndoRedoEnabled(True)
         self.text_edit.setStyleSheet("""
                                      QTextEdit {
@@ -260,6 +261,8 @@ border-color: qlineargradient(spread:reflect, x1:0.203, y1:0, x2:1, y2:0, stop:0
         self.text_edit.cursorPositionChanged.connect(self.update_cursor_position)
 
         self.status_bar = QStatusBar()
+        self.file_status_label = QLabel("")  # Default status
+        self.status_bar.addPermanentWidget(self.file_status_label)
         self.status_bar.setStyleSheet("""
 background:#f2f2f2;
                                       height:25px;
@@ -1067,6 +1070,26 @@ background-color: white;
         help_menu = menubar.addMenu('Help')
         
         self.showMaximized()
+
+    def update_file_status(self, status):
+        if status == "Saved":
+            self.file_status_label.setText(status)
+            self.file_status_label.setStyleSheet("""
+                color: green;
+                font-weight: bold;
+            """)
+        elif status == "Edited and Unsaved":
+            self.file_status_label.setText(status)
+            self.file_status_label.setStyleSheet("""
+                color: red;
+                font-weight: bold;
+            """)
+        elif status == "Unsaved":
+            self.file_status_label.setText(status)
+            self.file_status_label.setStyleSheet("""
+                color: red;
+                font-weight: bold;
+            """)
 
     def toggle_fullscreen(self):
         if self.isFullScreen():
@@ -2054,6 +2077,7 @@ font-size:17px;
 """)
                 self.copy_path_button.setVisible(True)
                 self.close_save_button.setVisible(True)
+                self.update_file_status("Saved")
         except Exception as e:
             self.file_label.setStyleSheet("""
     background:#f2f2f2;
@@ -2109,6 +2133,7 @@ font-size:17px;
 """)
                 self.copy_path_button.setVisible(False)
                 self.close_save_button.setVisible(False)
+                self.update_file_status("Saved")
         except Exception as e:
             self.file_label.setStyleSheet("""
     background:#f2f2f2;
@@ -2143,6 +2168,7 @@ font-size:17px;
         if self.current_file:
             with open(self.current_file, 'w', encoding='utf-8') as file:
                 file.write(self.text_edit.toPlainText())
+                self.update_file_status("Saved")
         else:
             self.save_file_as()
 
@@ -2166,6 +2192,7 @@ font-size:17px;
 "Plain Text (*.txt);;"
 "Beamer Files (*.tex);;"
 "All Files (*)", options=options)
+        self.update_file_status("Saved")
         if file_name:
             self.current_file = file_name
             self.save_file()
@@ -2224,6 +2251,7 @@ font-size:17px;
 """)
                 self.copy_path_button.setVisible(False)
                 self.close_save_button.setVisible(False)
+                self.update_file_status("Saved")
         except Exception as e:
             self.file_label.setStyleSheet("""
     background:#f2f2f2;
@@ -2239,6 +2267,11 @@ font-size:17px;
                 font-size:17px;
             """))
             QMessageBox.critical(self, "Error", f"An error occurred while opening the file:\n{str(e)}")
+
+    def mark_as_edited(self):
+        # Call this method whenever the user edits the text
+        self.update_file_status("Edited and Unsaved")
+
     def make_bold(self):
         self.format_text('**', '**')
 
