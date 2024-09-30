@@ -788,6 +788,11 @@ margin-right: 5px;
         prog_bar_action.setToolTip("Insert Progress Bar")
         self.elements_toolbar.addAction(prog_bar_action)
 
+        custom_badge_action = QAction(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\badge.png"), 'Insert Custom Badge', self)
+        custom_badge_action.triggered.connect(self.custom_badge_dialog)
+        custom_badge_action.setToolTip("Insert Custom Badge")
+        self.elements_toolbar.addAction(custom_badge_action)
+
         hr_action = QAction(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\horzline.png"),"Horizontal Line", self)
         hr_action.triggered.connect(self.insert_horizontal_line)
         hr_action.setToolTip("Add a horizontal line")
@@ -1949,6 +1954,303 @@ font-size:17px;
             self.text_edit.setTextCursor(cursor)
 
             self.admonition_combobox.setCurrentIndex(0)
+
+    def custom_badge_dialog(self):
+        # Create a dialog inside this function
+        dialog = QDialog(self)
+        dialog.setWindowIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\badge.png"))
+        dialog.setWindowTitle("Custom Badges")
+        dialog.setGeometry(100, 100, 560, 600)
+
+        # Create a scroll area
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+
+        # Create a widget to hold the buttons
+        scroll_content = QWidget()
+        scroll_layout = QGridLayout()
+
+        # Create buttons individually with icons only
+        # Define the size for the buttons
+        button_size = QSize(250, 90)  # Set your desired button size (3 times larger)
+
+        # Button 1
+        button1 = QPushButton()
+        button1.setFixedSize(button_size)
+        button1.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button1.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\standardB.png"))
+        button1.setIconSize(button_size)  # Set icon size to button size
+        button1.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; border-radius: 5px; line-height: 1; margin-bottom: 10px;">
+        <span style="background-color: #555; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-left-radius: 5px; border-bottom-left-radius: 5px;">Standard</span>
+        <span style="background-color: #007bff; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Badge</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button1, 0, 0)
+
+        # Button 2
+        button2 = QPushButton()
+        button2.setFixedSize(button_size)
+        button2.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button2.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\shadB.png"))
+        button2.setIconSize(button_size)  # Set icon size to button size
+        button2.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; border-radius: 5px; line-height: 1; margin-bottom: 10px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+        <span style="background-color: #ff9800; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-left-radius: 5px; border-bottom-left-radius: 5px;">Shadow</span>
+        <span style="background-color: #ff5722; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Effect</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button2, 0, 1)
+
+        # Button 3
+        button3 = QPushButton()
+        button3.setFixedSize(button_size)
+        button3.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button3.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\breakB.png"))
+        button3.setIconSize(button_size)  # Set icon size to button size
+        button3.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; border-radius: 5px; line-height: 1; margin-bottom: 10px;">
+        <span style="background-color: #f44336; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-left-radius: 5px; border-bottom-left-radius: 5px; transform: rotate(-10deg);">Diagonal</span>
+        <span style="background-color: #e91e63; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-right-radius: 5px; border-bottom-right-radius: 5px; transform: rotate(10deg);">Text</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button3, 1, 0)
+
+        # Button 4
+        button4 = QPushButton()
+        button4.setFixedSize(button_size)
+        button4.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button4.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\alertB.png"))
+        button4.setIconSize(button_size)  # Set icon size to button size
+        button4.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px;">
+        <span style="background-color: #FF5733; color: #FFF; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Alert</span>
+        <span style="background-color: #C70039; color: #FFF; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Notification</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button4, 1, 1)
+
+        # Button 5
+        button5 = QPushButton()
+        button5.setFixedSize(button_size)
+        button5.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button5.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\gradB.png"))
+        button5.setIconSize(button_size)  # Set icon size to button size
+        button5.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; border-radius: 5px; line-height: 1; margin-bottom: 10px;">
+        <span style="background: linear-gradient(90deg, #00c6ff, #0072ff); color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-left-radius: 5px; border-bottom-left-radius: 5px;">Gradient</span>
+        <span style="background: linear-gradient(90deg, #f6d365, #fda085); color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Badge</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button5, 2, 0)
+
+        # Button 6
+        button6 = QPushButton()
+        button6.setFixedSize(button_size)
+        button6.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button6.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\rouncorB.png"))
+        button6.setIconSize(button_size)  # Set icon size to button size
+        button6.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; border-radius: 15px; line-height: 1; margin-bottom: 10px;">
+        <span style="background-color: #4CAF50; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-left-radius: 15px; border-bottom-left-radius: 15px;">Round</span>
+        <span style="background-color: #8BC34A; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center; border-top-right-radius: 15px; border-bottom-right-radius: 15px;">Corners</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button6, 2, 1)
+
+        # Button 7
+        button7 = QPushButton()
+        button7.setFixedSize(button_size)
+        button7.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button7.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\outlB.png"))
+        button7.setIconSize(button_size)  # Set icon size to button size
+        button7.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px; border: 2px solid #4CAF50;">
+        <span style="background-color: transparent; color: #4CAF50; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Outline</span>
+        <span style="background-color: transparent; color: #4CAF50; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Badge</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button7, 3, 0)
+
+        # Button 8
+        button8 = QPushButton()
+        button8.setFixedSize(button_size)
+        button8.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button8.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\sharpgradB.png"))
+        button8.setIconSize(button_size)  # Set icon size to button size
+        button8.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px;">
+        <span style="background: linear-gradient(90deg, #FF6B6B, #FFD93D); color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Sharp</span>
+        <span style="background: linear-gradient(90deg, #6BCB77, #4D96FF); color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Edges</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button8, 3, 1)
+
+        # Button 9
+        button9 = QPushButton()
+        button9.setFixedSize(button_size)
+        button9.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button9.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\sharshadB.png"))
+        button9.setIconSize(button_size)  # Set icon size to button size
+        button9.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);">
+        <span style="background-color: #3F51B5; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Shadow</span>
+        <span style="background-color: #5C6BC0; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Effect</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button9, 4, 0)
+
+        # Button 10
+        button10 = QPushButton()
+        button10.setFixedSize(button_size)
+        button10.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button10.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\stripB.png"))
+        button10.setIconSize(button_size)  # Set icon size to button size
+        button10.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px;">
+        <span style="background: repeating-linear-gradient(45deg, #FFC107, #FFC107 10px, #FF5722 10px, #FF5722 20px); color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Striped</span>
+        <span style="background: repeating-linear-gradient(45deg, #8BC34A, #8BC34A 10px, #CDDC39 10px, #CDDC39 20px); color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Badge</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button10, 4, 1)
+
+        # Button 11
+        button11 = QPushButton()
+        button11.setFixedSize(button_size)
+        button11.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button11.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\wiborB.png"))
+        button11.setIconSize(button_size)  # Set icon size to button size
+        button11.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px; border: 2px solid #333;">
+        <span style="background-color: #333; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">With</span>
+        <span style="background-color: #FF8C00; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Border</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button11, 5, 0)
+
+        # Button 12
+        button12 = QPushButton()
+        button12.setFixedSize(button_size)
+        button12.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button12.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\dottedB.png"))
+        button12.setIconSize(button_size)  # Set icon size to button size
+        button12.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px; border: 2px dotted #2196F3;">
+        <span style="background-color: #E91E63; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Dotted</span>
+        <span style="background-color: #673AB7; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Border</span>
+    </div>
+"""))
+        scroll_layout.addWidget(button12, 5, 1)
+
+        # Button 13
+        button13 = QPushButton()
+        button13.setFixedSize(button_size)
+        button13.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button13.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\noradB.png"))
+        button13.setIconSize(button_size)  # Set icon size to button size
+        button13.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; line-height: 1; margin-bottom: 10px;">
+        <span style="background-color: #555; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">No</span>
+        <span style="background-color: #007bff; color: white; margin: 0; padding: 5px 10px; display: flex; align-items: center; justify-content: center;">Radius</span>
+    </div1
+"""))
+        scroll_layout.addWidget(button13, 6, 0)
+
+        button14 = QPushButton()
+        button14.setFixedSize(button_size)
+        button14.setStyleSheet("""
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 5px;
+        """)
+        button14.setIcon(QtGui.QIcon("C:\\Users\\rishi\\OneDrive\\Documents\\ME_Icons\\primhov.png"))
+        button14.setIconSize(button_size)  # Set icon size to button size
+        button14.clicked.connect(lambda: self.text_edit.textCursor().insertText("""
+\n<div style="display: inline-flex; align-items: center; justify-content: center; border-radius: 20px; padding: 10px 15px; margin: 5px; font-size: 14px; color: white; background: linear-gradient(45deg, #6200ea, #3700b3); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;" 
+         onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.2)';" 
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+        Mouse Hover
+    </div>
+"""))
+        scroll_layout.addWidget(button14, 6, 1)
+
+        # Add the grid layout to the scroll content widget
+        scroll_content.setLayout(scroll_layout)
+        scroll_area.setWidget(scroll_content)
+
+        # Set the dialog layout
+        dialog_layout = QVBoxLayout()
+        dialog_layout.addWidget(scroll_area)
+        dialog.setLayout(dialog_layout)
+
+        # Show the dialog
+        dialog.show()
 
     def custom_inline_alert_parser(self, text):
         inline_alert_pattern = r'> (.*?)\n'
